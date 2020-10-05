@@ -197,10 +197,10 @@ d3.csv('./assets/data/data.csv').then(function(censusData) {
       .data(censusData)
       .enter()
       .append('circle')
-      .classed('stateCircle', true)
       .attr('cx', d => xLinearScale(d[chosenXAxis]))
       .attr('cy', d => yLinearScale(d[chosenYAxis]))
       .attr('r', 14)
+      .attr('fill', 'red')
       .attr('opacity', '.5');
 
     //append Initial Text
