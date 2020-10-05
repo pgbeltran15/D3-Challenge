@@ -157,3 +157,62 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
     return circlesGroup;
 }
+//retrieve data
+d3.csv('./assets/data/data.csv').then(function(censusData) {
+
+    console.log(censusData);
+    
+    //Parse data
+    censusData.forEach(function(data){
+        data.obesity = +data.obesity;
+        data.income = +data.income;
+        data.smokes = +data.smokes;
+        data.age = +data.age;
+        data.healthcare = +data.healthcare;
+        data.poverty = +data.poverty;
+    });
+
+    //create linear scales
+    var xLinearScale = xScale(censusData, chosenXAxis);
+    var yLinearScale = yScale(censusData, chosenYAxis);
+
+    //create x axis
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
+
+    //append X
+    var xAxis = chartGroup.append('g')
+      .classed('x-axis', true)
+      .attr('transform', `translate(0, ${height})`)
+      .call(bottomAxis);
+
+    //append Y
+    var yAxis = chartGroup.append('g')
+      .classed('y-axis', true)
+      //.attr
+      .call(leftAxis);
+    
+    //append Circles
+    var circlesGroup = chartGroup.selectAll('circle')
+      .data(censusData)
+      .enter()
+      .append('circle')
+      .classed('stateCircle', true)
+      .attr('cx', d => xLinearScale(d[chosenXAxis]))
+      .attr('cy', d => yLinearScale(d[chosenYAxis]))
+      .attr('r', 14)
+      .attr('opacity', '.5');
+
+    //append Initial Text
+    var textGroup = chartGroup.selectAll('.stateText')
+      .data(censusData)
+      .enter()
+      .append('text')
+      .classed('stateText', true)
+      .attr('x', d => xLinearScale(d[chosenXAxis]))
+      .attr('y', d => yLinearScale(d[chosenYAxis]))
+      .attr('dy', 3)
+      .attr('font-size', '10px')
+      .text(function(d){return d.abbr});
+
+});
