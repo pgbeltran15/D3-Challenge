@@ -113,3 +113,47 @@ function styleX(value, chosenXAxis) {
     }
 }
 
+//funtion for updating circles group
+function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
+
+    //poverty
+    if (chosenXAxis === 'poverty') {
+      var xLabel = 'Poverty:';
+    }
+    //income
+    else if (chosenXAxis === 'income'){
+      var xLabel = 'Median Income:';
+    }
+    //age
+    else {
+      var xLabel = 'Age:';
+    }
+//Y label
+  //healthcare
+  if (chosenYAxis ==='healthcare') {
+    var yLabel = "No Healthcare:"
+  }
+  else if(chosenYAxis === 'obesity') {
+    var yLabel = 'Obesity:';
+  }
+  //smoking
+  else{
+    var yLabel = 'Smokers:';
+  }
+
+  //create tooltip
+  var toolTip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-8, 0])
+    .html(function(d) {
+        return (`${d.state}<br>${xLabel} ${styleX(d[chosenXAxis], chosenXAxis)}<br>${yLabel} ${d[chosenYAxis]}%`);
+  });
+
+  circlesGroup.call(toolTip);
+
+  //add
+  circlesGroup.on('mouseover', toolTip.show)
+    .on('mouseout', toolTip.hide);
+
+    return circlesGroup;
+}
