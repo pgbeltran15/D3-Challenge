@@ -115,7 +115,7 @@ function styleX(value, chosenXAxis) {
 
 //funtion for updating circles group
 function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
-
+  //X label
     //poverty
     if (chosenXAxis === 'poverty') {
       var xLabel = 'Poverty:';
@@ -128,18 +128,18 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
     else {
       var xLabel = 'Age:';
     }
-//Y label
-  //healthcare
-  if (chosenYAxis ==='healthcare') {
-    var yLabel = "No Healthcare:"
-  }
-  else if(chosenYAxis === 'obesity') {
-    var yLabel = 'Obesity:';
-  }
-  //smoking
-  else{
-    var yLabel = 'Smokers:';
-  }
+  //Y label
+    //healthcare
+    if (chosenYAxis ==='healthcare') {
+      var yLabel = "No Healthcare:"
+    }
+    else if(chosenYAxis === 'obesity') {
+      var yLabel = 'Obesity:';
+    }
+    //smoking
+    else{
+      var yLabel = 'Smokers:';
+    }
 
   //create tooltip
   var toolTip = d3.tip()
